@@ -80,7 +80,7 @@ router.get('/database', async (req: Request, res: Response) => {
     };
 
     // Test database with a simple ping
-    if (state === 1) {
+    if (state === 1 && mongoose.connection.db) {
       await mongoose.connection.db.admin().ping();
       health.success = true;
     }

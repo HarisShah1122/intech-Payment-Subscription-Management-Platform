@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Response, NextFunction } from 'express';
 import { authenticate, AuthRequest } from '../middleware/auth';
 import { asyncHandler } from '../middleware/errorHandler';
 
@@ -16,7 +16,7 @@ router.use(authenticate);
 // - Get available plans
 
 // Get user subscriptions
-router.get('/', asyncHandler(async (req: AuthRequest, res) => {
+router.get('/', asyncHandler(async (req: any, res: Response, next: NextFunction) => {
   res.json({
     success: true,
     message: 'Subscription routes - Coming soon',

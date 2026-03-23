@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import { authenticate, authorize, AuthRequest } from '../middleware/auth';
+import { Router, Response, NextFunction } from 'express';
+import { authenticate, AuthRequest } from '../middleware/auth';
 import { asyncHandler } from '../middleware/errorHandler';
 
 const router = Router();
@@ -8,7 +8,7 @@ const router = Router();
 router.use(authenticate);
 
 // Get user profile (already in auth routes, keeping for consistency)
-router.get('/profile', asyncHandler(async (req: AuthRequest, res) => {
+router.get('/profile', asyncHandler(async (req: any, res: Response, next: NextFunction) => {
   res.json({
     success: true,
     data: {

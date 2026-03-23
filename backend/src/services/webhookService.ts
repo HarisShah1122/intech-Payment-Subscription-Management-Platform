@@ -7,7 +7,7 @@ import { SubscriptionService } from './subscriptionService';
 
 // Initialize Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2023-10-16',
+  apiVersion: '2024-06-20',
 });
 
 export class WebhookService {
@@ -39,8 +39,8 @@ export class WebhookService {
       }
 
       // Get PayPal certificate
-      const certificate = await this.getPayPalCertificate(certId);
-      if (!certificate) {
+      const cert = await this.getPayPalCertificate(certId);
+      if (!cert) {
         return false;
       }
 
@@ -54,7 +54,7 @@ export class WebhookService {
       ].join('|');
 
       // Verify signature
-      const publicKey = crypto.createPublicKey(certificate);
+      const publicKey = crypto.createPublicKey(cert as string);
       const verify = crypto.createVerify('RSA-SHA256');
       verify.update(verificationString);
       return verify.verify(publicKey, transmissionSig, 'base64');
@@ -78,7 +78,7 @@ export class WebhookService {
         return null;
       }
 
-      const cert = await response.json();
+      const cert = await response.json() as { certificate: string };
       return cert.certificate;
     } catch (error) {
       logger.error('Failed to get PayPal certificate', error);
@@ -98,7 +98,7 @@ export class WebhookService {
       body: 'grant_type=client_credentials',
     });
 
-    const data = await response.json();
+    const data = await response.json() as { access_token: string };
     return data.access_token;
   }
 

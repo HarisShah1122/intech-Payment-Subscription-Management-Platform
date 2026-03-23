@@ -71,32 +71,22 @@ export const errorHandler = (
   }
 
   // Stripe errors
-  if (error.type === 'StripeCardError') {
+  if ((error as any).type === 'StripeCardError') {
     statusCode = 400;
     message = error.message;
   }
 
-  if (error.type === 'StripeRateLimitError') {
-    statusCode = 429;
-    message = 'Too many requests to Stripe';
-  }
-
-  if (error.type === 'StripeInvalidRequestError') {
-    statusCode = 400;
-    message = 'Invalid Stripe request';
-  }
-
-  if (error.type === 'StripeAPIError') {
+  if ((error as any).type === 'StripeAPIError') {
     statusCode = 502;
     message = 'Stripe API error';
   }
 
-  if (error.type === 'StripeConnectionError') {
+  if ((error as any).type === 'StripeConnectionError') {
     statusCode = 503;
     message = 'Stripe connection error';
   }
 
-  if (error.type === 'StripeAuthenticationError') {
+  if ((error as any).type === 'StripeAuthenticationError') {
     statusCode = 401;
     message = 'Stripe authentication error';
   }

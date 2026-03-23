@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Response, NextFunction } from 'express';
 import { authenticate, AuthRequest } from '../middleware/auth';
 import { asyncHandler } from '../middleware/errorHandler';
 
@@ -16,7 +16,7 @@ router.use(authenticate);
 // - Remove payment method
 
 // Create payment intent
-router.post('/create-intent', asyncHandler(async (req: AuthRequest, res) => {
+router.post('/create-intent', asyncHandler(async (req: any, res: Response, next: NextFunction) => {
   res.json({
     success: true,
     message: 'Payment routes - Coming soon',
