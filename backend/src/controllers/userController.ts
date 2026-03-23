@@ -96,11 +96,11 @@ export const getAllUsers = asyncHandler(async (req: AuthRequest, res: Response) 
   }
 
   if (isActive !== undefined) {
-    query.isActive = isActive === 'true';
+    query.isActive = isActive === true;
   }
 
   if (emailVerified !== undefined) {
-    query.emailVerified = emailVerified === 'true';
+    query.emailVerified = emailVerified === true;
   }
 
   // Build sort
