@@ -51,6 +51,67 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Login endpoint
+app.post('/api/auth/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    
+    // Basic validation
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email and password are required'
+      });
+    }
+    
+    // Find user in database
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid credentials'
+      });
+    }
+    
+    // For demo purposes, accept any password
+    // In production, you'd verify the hashed password
+    // For now, we'll accept any non-empty password
+    if (password && password.length > 0) {
+      // Password is provided, continue with login
+    } else {
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid credentials'
+      });
+    }
+    
+    // Generate mock JWT token
+    const token = 'mock_jwt_token_' + Date.now();
+    
+    res.json({
+      success: true,
+      message: 'Login successful',
+      data: {
+        user: {
+          id: user._id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          role: user.role
+        },
+        token
+      }
+    });
+    
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error'
+    });
+  }
+});
+
 // Get current user endpoint
 app.get('/api/auth/me', async (req, res) => {
   try {
