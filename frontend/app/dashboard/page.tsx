@@ -2,9 +2,15 @@
 
 import React from 'react';
 import { useAuth } from '../../contexts/AuthContext';
+import { useRouter } from 'next/navigation';
 
-export default function DashboardPage() {
+export default function Dashboard() {
   const { user, isAuthenticated, isLoading } = useAuth();
+  const router = useRouter();
+
+  const handleNavigation = (path: string) => {
+    router.push(path);
+  };
 
   if (isLoading) {
     return (
@@ -47,29 +53,18 @@ export default function DashboardPage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        {/* Platform Status */}
-        <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
-          <div className="flex">
-            <div className="flex-shrink-0">
-              <h2 className="text-lg font-medium text-blue-800">🚀 Platform Status</h2>
-            </div>
-            <div className="ml-3 text-sm text-blue-700">
-              <div>Frontend: Running on http://localhost:3000</div>
-              <div>Backend API: http://localhost:5000</div>
-              <div>Status: ✅ Ready for Development</div>
-            </div>
-          </div>
-        </div>
-
         {/* Navigation Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {/* Overview Card */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div 
+            className="bg-white overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow duration-200 cursor-pointer"
+            onClick={() => handleNavigation('/dashboard/overview')}
+          >
             <div className="p-6">
               <div className="flex items-center">
                 <div className="flex-shrink-0 bg-blue-500 rounded-md p-2">
                   <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h6a2 2 0 002 2zm0 0H9a2 2 0 00-2 2v6a2 2 0 002 2h6a2 2 0 002 2zm0 0H9a2 2 0 00-2 2v6a2 2 0 002 2h6a2 2 0 002 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h6a2 2 0 002 2zm0 0H9a2 2 0 00-2 2v6a2 2 0 002 2h6a2 2 0 002 2zm0 0H9a2 2 0 00-2 2v6a2 2 0 002 2z" />
                   </svg>
                 </div>
                 <div className="ml-4">
@@ -81,7 +76,10 @@ export default function DashboardPage() {
           </div>
 
           {/* Subscriptions Card */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div 
+            className="bg-white overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow duration-200 cursor-pointer"
+            onClick={() => handleNavigation('/dashboard/subscriptions')}
+          >
             <div className="p-6">
               <div className="flex items-center">
                 <div className="flex-shrink-0 bg-green-500 rounded-md p-2">
@@ -98,12 +96,15 @@ export default function DashboardPage() {
           </div>
 
           {/* Payments Card */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div 
+            className="bg-white overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow duration-200 cursor-pointer"
+            onClick={() => handleNavigation('/dashboard/payments')}
+          >
             <div className="p-6">
               <div className="flex items-center">
                 <div className="flex-shrink-0 bg-purple-500 rounded-md p-2">
                   <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h1m-7 4h1m-7 4h1m-7 4h1" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h1m-7 4h1m-7 4h1" />
                   </svg>
                 </div>
                 <div className="ml-4">
@@ -115,12 +116,15 @@ export default function DashboardPage() {
           </div>
 
           {/* Profile Card */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div 
+            className="bg-white overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow duration-200 cursor-pointer"
+            onClick={() => handleNavigation('/dashboard/profile')}
+          >
             <div className="p-6">
               <div className="flex items-center">
                 <div className="flex-shrink-0 bg-yellow-500 rounded-md p-2">
                   <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 11-8 0 011-8 0 011 8 0 011-8 0 011 8 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 11-8 0 011-8 0 011 8 0z" />
                   </svg>
                 </div>
                 <div className="ml-4">
@@ -132,7 +136,10 @@ export default function DashboardPage() {
           </div>
 
           {/* Settings Card */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div 
+            className="bg-white overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow duration-200 cursor-pointer"
+            onClick={() => handleNavigation('/dashboard/settings')}
+          >
             <div className="p-6">
               <div className="flex items-center">
                 <div className="flex-shrink-0 bg-gray-500 rounded-md p-2">
@@ -149,12 +156,15 @@ export default function DashboardPage() {
           </div>
 
           {/* Support Card */}
-          <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div 
+            className="bg-white overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow duration-200 cursor-pointer"
+            onClick={() => handleNavigation('/dashboard/support')}
+          >
             <div className="p-6">
               <div className="flex items-center">
                 <div className="flex-shrink-0 bg-red-500 rounded-md p-2">
                   <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.636 3.536 3.536 3.536M21 12h-8m4 0h8m-4 0h4" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.636 3.536 3.536M21 12h-8m4 0h8m-4 0h4" />
                   </svg>
                 </div>
                 <div className="ml-4">

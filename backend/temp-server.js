@@ -51,6 +51,49 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Get current user endpoint
+app.get('/api/auth/me', async (req, res) => {
+  try {
+    // In a real app, you'd verify JWT token from Authorization header
+    // For now, return a mock user or check if user exists
+    const token = req.headers.authorization?.split(' ')[1];
+    
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        message: 'No token provided'
+      });
+    }
+    
+    // For demo purposes, return a mock user
+    // In production, decode JWT and find user in database
+    const mockUser = {
+      id: 'mock_user_id',
+      email: 'engrharisshah1122@gmail.com',
+      firstName: 'Haris',
+      lastName: 'Shah',
+      role: 'user',
+      isActive: true,
+      emailVerified: true,
+      createdAt: new Date().toISOString()
+    };
+    
+    res.json({
+      success: true,
+      data: {
+        user: mockUser
+      }
+    });
+    
+  } catch (error) {
+    console.error('Get current user error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error'
+    });
+  }
+});
+
 // Registration endpoint
 app.post('/api/auth/register', async (req, res) => {
   try {
