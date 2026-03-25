@@ -107,7 +107,7 @@ export class SubscriptionService {
     return SUBSCRIPTION_PLANS.find(plan => plan.id === planId) || null;
   }
 
-  static async createStripeSubscription(data: CreateSubscriptionData) {
+  static async createSubscription(data: CreateSubscriptionData) {
     const user = await User.findById(data.userId);
     if (!user) {
       throw createAuthError('User not found');
@@ -118,52 +118,50 @@ export class SubscriptionService {
       throw createValidationError('Invalid plan ID');
     }
 
-    // Create or retrieve Stripe customer
-    let customerId = user.stripeCustomerId;
-    if (!customerId) {
-      const customer = await stripe.customers.create({
-        email: user.email,
-        name: `${user.firstName} ${user.lastName}`,
-        metadata: {
-          userId: user._id.toString(),
-        },
-      });
-      
-      customerId = customer.id;
-      user.stripeCustomerId = customerId;
-      await user.save();
-    }
-
-    // Create Stripe subscription
     try {
-      const subscription = await stripe.subscriptions.create({
-        customer: customerId,
-        items: [{
-          price: plan.stripePriceId || data.planId, // Use predefined price ID or plan ID
-        }],
-        payment_behavior: 'default_incomplete',
-        payment_settings: {
-          save_default_payment_method: 'on_subscription',
-        },
-        expand: ['latest_invoice.payment_intent'],
-        trial_period_days: data.trialPeriodDays,
-      });
-
-      logger.info('Stripe subscription created', {
-        userId: user._id,
-        subscriptionId: subscription.id,
-        planId: data.planId,
-      });
-
-      return {
-        success: true,
-        subscriptionId: subscription.id,
-        clientSecret: subscription.latest_invoice?.payment_intent?.client_secret,
-        status: subscription.status,
-      };
+      if (data.provider === 'stripe') {
+        return await this.createStripeSubscription(data);
+      } else if (data.provider === 'paypal') {
+        return await this.createPayPalSubscription(data);
+      } else {
+        throw createValidationError('Invalid payment provider');
+      }
     } catch (error) {
-      logger.error('Stripe subscription creation failed', error);
-      throw new Error('Failed to create Stripe subscription');
+      logger.error('Subscription creation failed', error);
+      throw new Error('Failed to create subscription');
+    }
+  }
+
+  static async updateSubscription(subscriptionId: string, updates: any) {
+    try {
+      if (updates.cancel_at_period_end !== undefined) {
+        return await this.cancelStripeSubscription(subscriptionId);
+      }
+      
+      const plan = await this.getPlanById(updates.planId);
+      if (!plan) {
+        throw createValidationError('Invalid plan ID');
+      }
+
+      return await this.updateStripeSubscription(subscriptionId, updates.planId);
+    } catch (error) {
+      logger.error('Subscription update failed', error);
+      throw new Error('Failed to update subscription');
+    }
+  }
+
+  static async cancelSubscription(provider: string, subscriptionId: string) {
+    try {
+      if (provider === 'stripe') {
+        return await this.cancelStripeSubscription(subscriptionId);
+      } else if (provider === 'paypal') {
+        return await this.cancelPayPalSubscription(subscriptionId);
+      } else {
+        throw createValidationError('Invalid payment provider');
+      }
+    } catch (error) {
+      logger.error('Subscription cancellation failed', error);
+      throw new Error('Failed to cancel subscription');
     }
   }
 
