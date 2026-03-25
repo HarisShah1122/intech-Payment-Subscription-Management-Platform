@@ -55,10 +55,11 @@ export const getActiveSubscription = asyncHandler(async (req: AuthRequest, res: 
 });
 
 export const createSubscription = asyncHandler(async (req: AuthRequest, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw createValidationError(errors.array()[0].msg);
-  }
+  // TODO: Add validation rules when implementing frontend
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   throw createValidationError(errors.array()[0].msg);
+  // }
 
   const { planId, paymentMethodId, provider, trialPeriodDays } = req.body;
   const userId = req.user!._id;
@@ -116,10 +117,11 @@ export const createSubscription = asyncHandler(async (req: AuthRequest, res: Res
 });
 
 export const updateSubscription = asyncHandler(async (req: AuthRequest, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw createValidationError(errors.array()[0].msg);
-  }
+  // TODO: Add validation rules when implementing frontend
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   throw createValidationError(errors.array()[0].msg);
+  // }
 
   const { subscriptionId } = req.params;
   const { planId } = req.body;

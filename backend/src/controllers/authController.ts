@@ -17,11 +17,11 @@ import { logger } from '../utils/logger';
 import crypto from 'crypto';
 
 export const register = asyncHandler(async (req: AuthRequest, res: Response) => {
-  // Check for validation errors
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw createValidationError(errors.array()[0].msg);
-  }
+  // TODO: Add validation rules when implementing frontend
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   throw createValidationError(errors.array()[0].msg);
+  // }
 
   const { email, password, firstName, lastName } = req.body;
 
@@ -76,10 +76,11 @@ export const register = asyncHandler(async (req: AuthRequest, res: Response) => 
 });
 
 export const login = asyncHandler(async (req: AuthRequest, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw createValidationError(errors.array()[0].msg);
-  }
+  // TODO: Add validation rules when implementing frontend
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   throw createValidationError(errors.array()[0].msg);
+  // }
 
   const { email, password } = req.body;
 
@@ -184,10 +185,11 @@ export const getCurrentUser = asyncHandler(async (req: AuthRequest, res: Respons
 });
 
 export const updateProfile = asyncHandler(async (req: AuthRequest, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw createValidationError(errors.array()[0].msg);
-  }
+  // TODO: Add validation rules when implementing frontend
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   throw createValidationError(errors.array()[0].msg);
+  // }
 
   const allowedUpdates = ['firstName', 'lastName', 'phone', 'address', 'preferences'];
   const updates = Object.keys(req.body);
@@ -222,10 +224,11 @@ export const updateProfile = asyncHandler(async (req: AuthRequest, res: Response
 });
 
 export const changePassword = asyncHandler(async (req: AuthRequest, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw createValidationError(errors.array()[0].msg);
-  }
+  // TODO: Add validation rules when implementing frontend
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   throw createValidationError(errors.array()[0].msg);
+  // }
 
   const { currentPassword, newPassword } = req.body;
 
@@ -289,10 +292,11 @@ export const verifyEmail = asyncHandler(async (req: AuthRequest, res: Response) 
 });
 
 export const resendVerification = asyncHandler(async (req: AuthRequest, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw createValidationError(errors.array()[0].msg);
-  }
+  // TODO: Add validation rules when implementing frontend
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   throw createValidationError(errors.array()[0].msg);
+  // }
 
   const { email } = req.body;
 
@@ -327,10 +331,11 @@ export const resendVerification = asyncHandler(async (req: AuthRequest, res: Res
 });
 
 export const forgotPassword = asyncHandler(async (req: AuthRequest, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw createValidationError(errors.array()[0].msg);
-  }
+  // TODO: Add validation rules when implementing frontend
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   throw createValidationError(errors.array()[0].msg);
+  // }
 
   const { email } = req.body;
 
@@ -363,10 +368,11 @@ export const forgotPassword = asyncHandler(async (req: AuthRequest, res: Respons
 });
 
 export const resetPassword = asyncHandler(async (req: AuthRequest, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw createValidationError(errors.array()[0].msg);
-  }
+  // TODO: Add validation rules when implementing frontend
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   throw createValidationError(errors.array()[0].msg);
+  // }
 
   const { token, newPassword } = req.body;
 

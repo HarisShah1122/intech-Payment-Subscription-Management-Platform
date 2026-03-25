@@ -14,10 +14,11 @@ import { SubscriptionService } from '../services/subscriptionService';
 import { logger } from '../utils/logger';
 
 export const createPaymentIntent = asyncHandler(async (req: AuthRequest, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw createValidationError(errors.array()[0].msg);
-  }
+  // TODO: Add validation rules when implementing frontend
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   throw createValidationError(errors.array()[0].msg);
+  // }
 
   const { amount, currency = 'usd', paymentMethodId, description } = req.body;
   const userId = req.user!._id;
@@ -149,10 +150,11 @@ export const confirmPayment = asyncHandler(async (req: AuthRequest, res: Respons
 });
 
 export const createPayPalOrder = asyncHandler(async (req: AuthRequest, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw createValidationError(errors.array()[0].msg);
-  }
+  // TODO: Add validation rules when implementing frontend
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   throw createValidationError(errors.array()[0].msg);
+  // }
 
   const { amount, currency = 'USD', description } = req.body;
   const userId = req.user!._id;

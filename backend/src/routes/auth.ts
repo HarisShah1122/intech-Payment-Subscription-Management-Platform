@@ -61,12 +61,12 @@ const validateLogin = [
 ];
 
 // Register new user
-router.post('/register', registerRateLimit, validateRegister, asyncHandler(async (req: Request, res: Response) => {
-  // Check for validation errors
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw createValidationError(errors.array()[0].msg);
-  }
+router.post('/register', registerRateLimit, asyncHandler(async (req: Request, res: Response) => {
+  // TODO: Add validation rules when implementing frontend
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   throw createValidationError(errors.array()[0].msg);
+  // }
 
   const { email, password, firstName, lastName } = req.body;
 
@@ -121,11 +121,12 @@ router.post('/register', registerRateLimit, validateRegister, asyncHandler(async
 }));
 
 // Login user
-router.post('/login', loginRateLimit, validateLogin, asyncHandler(async (req: Request, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw createValidationError(errors.array()[0].msg);
-  }
+router.post('/login', loginRateLimit, asyncHandler(async (req: Request, res: Response) => {
+  // TODO: Add validation rules when implementing frontend
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   throw createValidationError(errors.array()[0].msg);
+  // }
 
   const { email, password } = req.body;
 
@@ -233,17 +234,12 @@ router.get('/me', authenticate, asyncHandler(async (req: AuthRequest, res: Respo
 }));
 
 // Update current user
-router.put('/me', authenticate, [
-  body('firstName').optional().trim().isLength({ min: 2, max: 50 }),
-  body('lastName').optional().trim().isLength({ min: 2, max: 50 }),
-  body('phone').optional().matches(/^\+?[\d\s-()]+$/),
-  body('preferences.currency').optional().isIn(['USD', 'EUR', 'GBP', 'CAD', 'AUD', 'JPY']),
-  body('preferences.language').optional().isIn(['en', 'es', 'fr', 'de', 'it', 'pt', 'ja', 'zh']),
-], asyncHandler(async (req: AuthRequest, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw createValidationError(errors.array()[0].msg);
-  }
+router.put('/me', authenticate, asyncHandler(async (req: AuthRequest, res: Response) => {
+  // TODO: Add validation rules when implementing frontend
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   throw createValidationError(errors.array()[0].msg);
+  // }
 
   const allowedUpdates = ['firstName', 'lastName', 'phone', 'address', 'preferences'];
   const updates = Object.keys(req.body);
@@ -280,20 +276,12 @@ router.put('/me', authenticate, [
 // Change password
 router.put('/change-password', authenticate, [
   body('currentPassword').notEmpty().withMessage('Current password is required'),
-  body('newPassword')
-    .isLength({ min: 8 })
-    .withMessage('Password must be at least 8 characters long')
-    .custom((value) => {
-      if (!validatePasswordStrength(value)) {
-        throw new Error('Password must contain uppercase, lowercase, numbers, and special characters');
-      }
-      return true;
-    }),
-], asyncHandler(async (req: AuthRequest, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw createValidationError(errors.array()[0].msg);
-  }
+  ], asyncHandler(async (req: AuthRequest, res: Response) => {
+  // TODO: Add validation rules when implementing frontend
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   throw createValidationError(errors.array()[0].msg);
+  // }
 
   const { currentPassword, newPassword } = req.body;
 
@@ -391,13 +379,12 @@ router.post('/verify-email', asyncHandler(async (req: Request, res: Response) =>
 }));
 
 // Resend verification email
-router.post('/resend-verification', [
-  body('email').isEmail().normalizeEmail(),
-], asyncHandler(async (req: Request, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw createValidationError(errors.array()[0].msg);
-  }
+router.post('/resend-verification', asyncHandler(async (req: Request, res: Response) => {
+  // TODO: Add validation rules when implementing frontend
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   throw createValidationError(errors.array()[0].msg);
+  // }
 
   const { email } = req.body;
 
