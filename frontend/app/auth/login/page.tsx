@@ -47,7 +47,7 @@ export default function LoginPage() {
     try {
       await login(formData.email, formData.password);
       router.push('/dashboard');
-    } catch (error) {
+    } catch {
       // Error is handled by AuthContext
     } finally {
       setIsSubmitting(false);
@@ -57,7 +57,7 @@ export default function LoginPage() {
   const handleGoogleLogin = async () => {
     try {
       await googleLogin();
-    } catch (error) {
+    } catch {
       // Error is handled by AuthContext
     }
   };

@@ -97,7 +97,7 @@ export default function RegisterPage() {
         lastName: formData.lastName,
       });
       router.push('/dashboard');
-    } catch (error) {
+    } catch {
       // Error is handled by AuthContext
     } finally {
       setIsSubmitting(false);
@@ -107,7 +107,7 @@ export default function RegisterPage() {
   const handleGoogleLogin = async () => {
     try {
       await googleLogin();
-    } catch (error) {
+    } catch {
       // Error is handled by AuthContext
     }
   };
