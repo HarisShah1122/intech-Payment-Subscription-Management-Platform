@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { logger } from '../utils/logger';
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/fintech_payment';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://admin:password123@localhost:27017/fintech_payment?authSource=admin';
 
 export const connectDatabase = async (): Promise<void> => {
   try {
