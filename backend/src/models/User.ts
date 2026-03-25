@@ -161,10 +161,6 @@ const userSchema = new Schema<IUser>({
 });
 
 // Indexes for performance
-userSchema.index({ email: 1 }, { unique: true });
-userSchema.index({ googleId: 1 }, { sparse: true });
-userSchema.index({ stripeCustomerId: 1 }, { sparse: true });
-userSchema.index({ paypalCustomerId: 1 }, { sparse: true });
 userSchema.index({ role: 1 });
 userSchema.index({ isActive: 1 });
 userSchema.index({ emailVerified: 1 });

@@ -112,9 +112,7 @@ const transactionSchema = new Schema<ITransaction>({
 });
 
 // Indexes for performance
-transactionSchema.index({ userId: 1, createdAt: -1 });
 transactionSchema.index({ provider: 1, providerTransactionId: 1 });
-transactionSchema.index({ status: 1, createdAt: -1 });
 transactionSchema.index({ type: 1, status: 1 });
 
 // Static methods

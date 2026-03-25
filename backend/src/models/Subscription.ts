@@ -126,7 +126,6 @@ const subscriptionSchema = new Schema<ISubscription>({
 // Indexes for performance
 subscriptionSchema.index({ userId: 1, status: 1 });
 subscriptionSchema.index({ provider: 1, providerSubscriptionId: 1 });
-subscriptionSchema.index({ currentPeriodEnd: 1 });
 
 // Static methods
 subscriptionSchema.statics.findByUserId = function(userId: string) {

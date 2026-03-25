@@ -97,7 +97,6 @@ const paymentMethodSchema = new Schema<IPaymentMethod>({
 });
 
 // Indexes for performance
-paymentMethodSchema.index({ userId: 1, isDefault: 1 });
 paymentMethodSchema.index({ provider: 1, providerPaymentMethodId: 1 });
 
 // Static methods

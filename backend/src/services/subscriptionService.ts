@@ -374,7 +374,7 @@ export class SubscriptionService {
   static async capturePayPalOrder(orderId: string) {
     try {
       const captureData = {};
-      const order = await paypal.order.capture(orderId, captureData);
+      const order = await paypal.order.capture(orderId, captureData, {});
 
       logger.info('PayPal order captured', {
         orderId,
